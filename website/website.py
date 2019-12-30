@@ -37,10 +37,11 @@ class User(): # for logging users in
 
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = "files/"
+
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=20) # makes sessions last 20 minutes.
 uploadfolder = app.config["UPLOAD_FOLDER"]
 staticfolder = "/static/"
-
+imageuploadfolder =  uploadfolder + "images/"
 ##LOGIN##
 
 #login = LoginManager()
@@ -66,24 +67,29 @@ staticfolder = "/static/"
 def hello():
     return "Hello world!"
 
-@app.route('/api/image')
+@app.route('/api/images')
 def get_image_list():
     lst = getimagedircontents()
     return str(lst)
 
-@app.route("/image/<filename>")
+
+@app.route("/test")
+def test():
+    thin = staticfolder + imageuploadfolder
+    return thin
+@app.route("/images/<filename>")
 def get_image(filename):
     #filename = 'pikayou.png' # get filename by checking /image
-    imagelink = staticfolder + uploadfolder + filename
+    imagelink = staticfolder + imageuploadfolder + filename
     lst = getimagedircontents()
     if filename in lst:
         return render_template("displayimage.html", imagelink=imagelink)
     else:
         return "Not found."
 
-@app.route("/api/image/<filename>")
+@app.route("/api/images/<filename>")
 def get_raw_image(filename):
-    imagefolder =  app.root_path + staticfolder + uploadfolder
+    imagefolder =  app.root_path + staticfolder + imageuploadfolder
     lst = getimagedircontents()
     if filename in lst:
         return send_from_directory(imagefolder, filename)
@@ -91,6 +97,6 @@ def get_raw_image(filename):
         return send_from_directory(app.root_path + staticfolder, "error.png")
 
 def getimagedircontents():
-    targetdir = staticfolder + uploadfolder
+    targetdir = staticfolder + imageuploadfolder
     lst = os.listdir(os.path.join(app.root_path, targetdir[1:]))
     return lst
