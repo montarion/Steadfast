@@ -1,0 +1,33 @@
+when migrating to a different machine, remember to:
+
+CONFIGURE APACHE
+1. install mod_wsgi:
+apt-get install libapache2-mod-wsgi-py3 python-dev
+
+2. edit the configuration for the enabled site:
+
+<VirtualHost *:80>
+        ServerName steadfast
+        DocumentRoot /var/www/html/
+        ...
+        # NEW
+        # Give an alias to to start your website url with
+        WSGIScriptAlias /alias /home/pi/code/Steadfast/website/website.wsgi
+        <Directory /home/pi/code/Steadfast/website/>
+            # set permissions as per apache2.conf file
+            Options FollowSymLinks
+            AllowOverride None
+            Require all granted
+        </Directory>
+        # END OF NEW
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        ...
+</VirtualHost>
+
+NOTE: the .wsgi file and the .py file MUST have the same name. The do not have to be in the same folder.
+
+3. edit the site.wsgi file to update the proper location of where it is contained
+NOTE: the location in the .wsgi file reflects the location of the .py file
+
+
