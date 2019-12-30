@@ -68,21 +68,29 @@ def hello():
 
 @app.route('/api/image')
 def get_image_list():
-    targetdir = staticfolder + uploadfolder
-    curdir = app.root_path
-    lst = os.listdir(os.path.join(curdir, targetdir[1:]))
+    lst = getimagedircontents()
     return str(lst)
 
 @app.route("/image/<filename>")
 def get_image(filename):
     #filename = 'pikayou.png' # get filename by checking /image
     imagelink = staticfolder + uploadfolder + filename
-    return render_template("displayimage.html", imagelink=imagelink)
+    lst = getimagedircontents()
+    if filename in lst:
+        return render_template("displayimage.html", imagelink=imagelink)
+    else:
+        return "Not found."
 
 @app.route("/api/image/<filename>")
 def get_raw_image(filename):
-    #filename = 'pikayou.png' # get filename by checking /image
-    
     imagefolder =  app.root_path + staticfolder + uploadfolder
-    return send_from_directory(imagefolder, filename)
-    #return imagefolder
+    lst = getimagedircontents()
+    if filename in lst:
+        return send_from_directory(imagefolder, filename)
+    else:
+        return send_from_directory(app.root_path + staticfolder, "error.png")
+
+def getimagedircontents():
+    targetdir = staticfolder + uploadfolder
+    lst = os.listdir(os.path.join(app.root_path, targetdir[1:]))
+    return lst
