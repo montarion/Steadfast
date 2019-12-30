@@ -1,5 +1,6 @@
 # from https://realpython.com/using-flask-login-for-user-management-with-flask/#the-flask-ecosystem
-from flask import Flask, send_file, render_template
+# and https://www.codementor.io/@abhishake/minimal-apache-configuration-for-deploying-a-flask-app-ubuntu-18-04-phu50a7ft
+from flask import Flask, send_file, render_template, send_from_directory
 #from flask_login import LoginManager, login_required, login_user
 import os, sys, json
 from datetime import datetime, timedelta
@@ -65,7 +66,7 @@ staticfolder = "/static/"
 def hello():
     return "Hello world!"
 
-@app.route('/image')
+@app.route('/api/image')
 def get_image_list():
     targetdir = staticfolder + uploadfolder
     curdir = app.root_path
@@ -77,3 +78,11 @@ def get_image(filename):
     #filename = 'pikayou.png' # get filename by checking /image
     imagelink = staticfolder + uploadfolder + filename
     return render_template("displayimage.html", imagelink=imagelink)
+
+@app.route("/api/image/<filename>")
+def get_raw_image(filename):
+    #filename = 'pikayou.png' # get filename by checking /image
+    
+    imagefolder =  app.root_path + staticfolder + uploadfolder
+    return send_from_directory(imagefolder, filename)
+    #return imagefolder
