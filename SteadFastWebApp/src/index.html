@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SteadFast | SteadWeb</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="assets/OurEmblem.jpg">
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
+<script type='text/javascript'> 
+  title = "SteadFast | SteadWeb | ";
+  position = 0;
+  function scrolltitle() {
+      document.title = title.substring(position, title.length) + title.substring(0, position); 
+      position++;
+      if (position > title.length) position = 0;
+      titleScroll = window.setTimeout(scrolltitle, 80);
+  }
+  scrolltitle();
+  </script>
