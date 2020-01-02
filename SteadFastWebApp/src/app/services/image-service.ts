@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class ImageService {
 
     existingImages: string[] = []
-    baseUrl = "83.163.109.161:80/"
+    baseUrl = "http://83.163.109.161/"
     constructor(private http: HttpClient) {
         this.getImageNames()
     }
@@ -28,10 +28,14 @@ export class ImageService {
     }
 
     post(imageName, baseEncoded) {
-        this.http.post((this.baseUrl + "api/images"), {
+        console.log(JSON.stringify({
             "image-name": imageName,
             "base-encoded-image": baseEncoded
-        })
+        }))
+        this.http.post((this.baseUrl + "api/images/" + imageName), JSON.stringify({
+            "image-name": imageName,
+            "base-encoded-image": baseEncoded
+        }))
     }
 
 }
