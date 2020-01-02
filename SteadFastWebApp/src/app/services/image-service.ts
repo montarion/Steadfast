@@ -9,11 +9,11 @@ export class ImageService {
     existingImages: string[] = []
     baseUrl = 'http://0.0.0.0:5000/' //"http://83.163.109.161/"
     constructor(private http: HttpClient) {
-        this.getImageNames()
+        // this.getImageNames()
     }
 
     ImageNameIsDuplicate(nameToCheck: string) {
-        this.getImageNames();
+        // this.getImageNames();
         if (this.existingImages.includes(nameToCheck)) {
             return true;
         }
@@ -33,11 +33,15 @@ export class ImageService {
         //     "base-encoded-image": baseEncoded
         // }))
         try {
-            this.http.post((this.baseUrl + "api/images/" + imageName), JSON.stringify({
+            this.http.post((this.baseUrl + "api/images"), JSON.stringify({
                 "image-name": imageName,
                 "base-encoded-image": baseEncoded
             }))
-            alert('post Succes!')
+
+            console.log(JSON.stringify({
+                "image-name": imageName,
+                "base-encoded-image": baseEncoded
+            }))
         } catch (error) {
             alert(error)
         }
