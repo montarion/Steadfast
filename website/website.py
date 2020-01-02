@@ -1,6 +1,7 @@
 # from https://realpython.com/using-flask-login-for-user-management-with-flask/#the-flask-ecosystem
 # and https://www.codementor.io/@abhishake/minimal-apache-configuration-for-deploying-a-flask-app-ubuntu-18-04-phu50a7ft
 from flask import Flask, send_file, render_template, send_from_directory
+from flask_cors import CORS
 #from flask_login import LoginManager, login_required, login_user
 import os, sys, json
 from datetime import datetime, timedelta
@@ -36,6 +37,7 @@ class User(): # for logging users in
 
 
 app = Flask(__name__)
+CORS(app)
 app.config["UPLOAD_FOLDER"] = "files/"
 
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=20) # makes sessions last 20 minutes.
@@ -63,6 +65,13 @@ imageuploadfolder =  uploadfolder + "images/"
 
 ##END OF LOGIN##
 
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+  return response
+
 @app.route("/")
 def hello():
     return "Hello world!"
@@ -77,7 +86,9 @@ def get_image_list():
 def test():
     thin = staticfolder + imageuploadfolder
     return thin
+
 @app.route("/images/<filename>")
+#@cross_origin()
 def get_image(filename):
     #filename = 'pikayou.png' # get filename by checking /image
     imagelink = staticfolder + imageuploadfolder + filename
@@ -88,6 +99,7 @@ def get_image(filename):
         return "Not found."
 
 @app.route("/api/images/<filename>")
+#@cross_origin()
 def get_raw_image(filename):
     imagefolder =  app.root_path + staticfolder + imageuploadfolder
     lst = getimagedircontents()
