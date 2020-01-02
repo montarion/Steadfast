@@ -1,0 +1,53 @@
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h3>Choose File</h3>            
+            <div class="form-group">
+                <input type="file" name="image" (change)="fileProgress($event)" />
+            </div>
+            <div *ngIf="fileUploadProgress">
+                Upload progress: {{ fileUploadProgress }}
+            </div>
+            <div class="image-preview mb-3" *ngIf="previewUrl">
+                <img [src]="previewUrl" height="300" />                 
+            </div>
+ 
+            <div class="mb-3" *ngIf="uploadedFilePath">
+                {{uploadedFilePath}}
+            </div>
+             
+            <div class="form-group">
+                <input [(ngModel)]="imageName" placeholder="Image name..." required/>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary"  (click)="onSubmit()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{baseImage}} -->
+
+<div class="v-spacing">
+  <form [formGroup]="uploadForm" (ngSubmit)="submit()">
+    <div class="form-group">
+      <input type="file" accept="image/*" (change)="showPreview($event)" />
+    </div>
+
+    <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+      <div class="form-group">
+        <img [src]="imageURL" [alt]="uploadForm.value.name" height="300">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input class="form-control" formControlName="name" placeholder="Enter image name...">
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+
+  </form>
+</div>
+{{baseImage}}
