@@ -41,18 +41,35 @@ export class OperationFormComponent implements OnInit {
     reader.readAsDataURL(file)
   }
 
+  getBase64(file: File) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  getBase64EncodedString(file: File) {
+    var encoded = "";
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      encoded = reader.result.toString();
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+    return encoded
+  }
+  
   // Submit Form
-  submit() {
+  async submit() {
     if (this.uploadForm.valid) {
       var totalImageName = this.uploadForm.get('name').value + "." + this.imageExtension
-      let reader = new FileReader();
-      reader.readAsDataURL(this.uploadForm.get('image').value);
-      reader.onload = () => {
-        this.imageBase = reader.result.toString();
-      };
-      reader.onerror = function (error) {
-        console.log('Error: ', error);
-      };
+      await this.getBase64(this.uploadForm.get('image').value).then(encoded => {
+        this.imageBase = encoded.toString();
+      })
 
       if (this.imageService.ImageNameIsDuplicate(totalImageName)) {
         console.log('Error: ', "this imagename already exists");

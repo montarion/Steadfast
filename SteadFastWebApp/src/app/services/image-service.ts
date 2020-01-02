@@ -28,14 +28,20 @@ export class ImageService {
     }
 
     post(imageName, baseEncoded) {
-        console.log(JSON.stringify({
-            "image-name": imageName,
-            "base-encoded-image": baseEncoded
-        }))
-        this.http.post((this.baseUrl + "api/images/" + imageName), JSON.stringify({
-            "image-name": imageName,
-            "base-encoded-image": baseEncoded
-        }))
+        // console.log(JSON.stringify({
+        //     "image-name": imageName,
+        //     "base-encoded-image": baseEncoded
+        // }))
+        try {
+            this.http.post((this.baseUrl + "api/images/" + imageName), JSON.stringify({
+                "image-name": imageName,
+                "base-encoded-image": baseEncoded
+            }))
+            alert('post Succes!')
+        } catch (error) {
+            alert(error)
+        }
+
     }
 
 }
