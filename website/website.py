@@ -1,9 +1,9 @@
 # from https://realpython.com/using-flask-login-for-user-management-with-flask/#the-flask-ecosystem
 # and https://www.codementor.io/@abhishake/minimal-apache-configuration-for-deploying-a-flask-app-ubuntu-18-04-phu50a7ft
-from flask import Flask, send_file, render_template, send_from_directory
+from flask import Flask, send_file, render_template, send_from_directory, request
 from flask_cors import CORS
 #from flask_login import LoginManager, login_required, login_user
-import os, sys, json
+import os, sys, json, base64
 from datetime import datetime, timedelta
 class User(): # for logging users in
     """An admin user capable of viewing reports.
@@ -65,13 +65,6 @@ imageuploadfolder =  uploadfolder + "images/"
 
 ##END OF LOGIN##
 
-@app.after_request
-def after_request(response):
-  response.headers.add('Access-Control-Allow-Origin', '*')
-  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-  return response
-
 @app.route("/")
 def hello():
     return "Hello world!"
@@ -98,8 +91,21 @@ def get_image(filename):
     else:
         return "Not found."
 
+@app.route("/api/images", methods=["POST"])
+def upload_image():
+    data = json.loads(request.data.decode())
+
+    b64img = data["base-encoded-image"]
+    imgdict = get_info(data)
+    print(imgdict["image_name"])
+    result = save_file(b64img, imgdict["image_name"])
+    if result == True:
+        # write imgdict to database
+        print("saved image.")
+        return json.dumps(imgdict)
+    return str(result)
+
 @app.route("/api/images/<filename>")
-#@cross_origin()
 def get_raw_image(filename):
     imagefolder =  app.root_path + staticfolder + imageuploadfolder
     lst = getimagedircontents()
@@ -111,4 +117,32 @@ def get_raw_image(filename):
 def getimagedircontents():
     targetdir = staticfolder + imageuploadfolder
     lst = os.listdir(os.path.join(app.root_path, targetdir[1:]))
-    return lst
+    return json.dumps(lst)
+
+def save_file(imgstring, filename):
+    try:
+        imgdata = base64.b64decode(imgstring)
+        filepath = app.root_path + staticfolder + imageuploadfolder
+        filename = filepath + filename
+        print("Trying to write to: {}".format(filename))
+        with open(filename, "wb") as f:
+            f.write(imgdata)
+            print("Writing to: {}".format(filename))
+        print("Finished writing to: {}".format(filename))
+        return True
+    except Exception as e:
+        print(str(e))
+        return str(e)
+
+def get_info(data):
+    name, ext = data.get("image-name").split(".")
+    b64img = data["base-encoded-image"]
+    operation = data.get("operation") #data["operation"]
+    if not name:
+        name = operation
+    name = "{}.{}".format(name, ext)
+    comments = data.get("comments")
+    author = data.get("author")
+    imageInfo = data.get("info")
+    imgdict = {"image_name": name, "author":author, "operation_name":operation, "comments":comments, "image_info":imageInfo}
+    return imgdict
