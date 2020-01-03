@@ -37,8 +37,8 @@ class Repository(object):
         try:
             self.db.remove(ids=[identity])
         except KeyError:  # entry doesn't exist
-            print(f'The id: {str(identity)} could not be found while trying to remove')
-            pass
+            #print(f'The id: {str(identity)} could not be found while trying to remove') # that's not how you do formatting
+            print("The id: {} could not be found while trying to remove.".format(str(identity)))
 
     def remove_by_property(self, prop: str, val):
         """warn: this doesn't throw an error when nothing is found"""
