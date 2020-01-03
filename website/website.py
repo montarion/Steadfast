@@ -94,9 +94,7 @@ def get_image(filename):
 @app.route("/api/images", methods=["POST"])
 def upload_image():
     data = json.loads(request.data.decode())
-
-    b64img = data["base-encoded-image"]
-    imgdict = get_info(data)
+    imgdict, b64img = get_info(data)
     print(imgdict["image_name"])
     result = save_file(b64img, imgdict["image_name"])
     if result == True:
@@ -122,6 +120,7 @@ def getimagedircontents():
 def save_file(imgstring, filename):
     try:
         imgdata = base64.b64decode(imgstring)
+        print(type(imgdata))
         filepath = app.root_path + staticfolder + imageuploadfolder
         filename = filepath + filename
         print("Trying to write to: {}".format(filename))
@@ -131,12 +130,16 @@ def save_file(imgstring, filename):
         print("Finished writing to: {}".format(filename))
         return True
     except Exception as e:
+        print("Couldn't save..")
         print(str(e))
         return str(e)
 
 def get_info(data):
+    print("**INSIDE GET_INFO**")
     name, ext = data.get("image-name").split(".")
-    b64img = data["base-encoded-image"]
+    b64img = data["base-encoded-image"].split(",")[1] # get actual base64 code
+    b64img = b64img + "====" # add padding
+    print(b64img)
     operation = data.get("operation") #data["operation"]
     if not name:
         name = operation
@@ -145,4 +148,4 @@ def get_info(data):
     author = data.get("author")
     imageInfo = data.get("info")
     imgdict = {"image_name": name, "author":author, "operation_name":operation, "comments":comments, "image_info":imageInfo}
-    return imgdict
+    return imgdict, b64img
