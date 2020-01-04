@@ -1,5 +1,4 @@
 import base64
-import json
 import os
 
 
@@ -17,6 +16,7 @@ class ImageService(object):
     def save_file(self, imgstring, filename):
         try:
             imgdata = base64.b64decode(imgstring)
+            # print(type(imgdata))
             filepath = self.root_path + self.staticfolder + self.imageuploadfolder
             filename = filepath + filename
             print("Trying to write to: {}".format(filename))
@@ -24,21 +24,24 @@ class ImageService(object):
                 f.write(imgdata)
                 print("Writing to: {}".format(filename))
             print("Finished writing to: {}".format(filename))
-            return filename
+            return True, filename
         except Exception as e:
+            print("Couldn't save..")
             print(str(e))
             return str(e)
 
     def get_info(self, data):
+        print("**INSIDE GET_INFO**")
         name, ext = data.get("image_name").split(".")
-        b64img = data["base_encoded_image"]  # TODO fix unused var?
-        operation = data.get("operation_name")  # data["operation"]
+        b64img = data["base_encoded_image"].split(",")[1]  # get actual base64 code
+        b64img += "===="  # add padding
+        operation = data.get("operation_name")
         if not name:
             name = operation
         name = "{}.{}".format(name, ext)
-        comments = data.get("comments") if data.get("comments") else []  # TODO check if this trick works
+        comments = data.get("comments")
         author = data.get("author")
-        image_info = data.get("image_info")
+        imageInfo = data.get("image_info")
         imgdict = {"image_name": name, "author": author, "operation_name": operation, "comments": comments,
-                   "image_info": image_info}
+                   "image_info": imageInfo}
         return imgdict, b64img
