@@ -27,11 +27,11 @@ export class ImageService {
         })
     }
 
-    post(imageName, baseEncoded) {
+    post(imageName: string, operationName: string, author: string, baseEncoded: string) {
         var json = JSON.stringify({
             "image_name": imageName,
-            "operation_name": "test-operation",
-            "author": "test-author",
+            "operation_name": operationName,
+            "author": author,
             "image_info": {
                 "path_to_file": ""
             },

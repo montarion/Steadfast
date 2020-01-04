@@ -12,7 +12,7 @@ class ImageService(object):
     def getimagedircontents(self):
         targetdir = self.staticfolder + self.imageuploadfolder
         lst = os.listdir(os.path.join(self.root_path, targetdir[1:]))
-        return json.dumps(lst)
+        return lst
 
     def save_file(self, imgstring, filename):
         try:
@@ -41,4 +41,4 @@ class ImageService(object):
         image_info = data.get("image_info")
         imgdict = {"image_name": name, "author": author, "operation_name": operation, "comments": comments,
                    "image_info": image_info}
-        return imgdict
+        return imgdict, b64img

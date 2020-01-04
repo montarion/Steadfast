@@ -18,7 +18,9 @@ export class OperationFormComponent implements OnInit {
   constructor(private http: HttpClient, public fb: FormBuilder, private imageService: ImageService) {
     this.uploadForm = this.fb.group({
       image: [null],
-      name: ['']
+      name: [''],
+      operation: [''],
+      author: ['']
     })
   }
 
@@ -67,6 +69,9 @@ export class OperationFormComponent implements OnInit {
   async submit() {
     if (this.uploadForm.valid) {
       var totalImageName = this.uploadForm.get('name').value + "." + this.imageExtension
+      var operationName = this.uploadForm.get('operation').value
+      var author = this.uploadForm.get('author').value
+      
       await this.getBase64(this.uploadForm.get('image').value).then(encoded => {
         this.imageBase = encoded.toString();
       })
@@ -75,8 +80,9 @@ export class OperationFormComponent implements OnInit {
         console.log('Error: ', "this imagename already exists");
         alert('An image with this name already exists, change it!')
       }
-
-      this.imageService.post(totalImageName, this.imageBase);
+      else {
+        this.imageService.post(totalImageName, operationName, author, this.imageBase);
+      }
     }
     else {
       this.formState = "invalid";

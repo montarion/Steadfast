@@ -22,6 +22,9 @@ class Repository(object):
         """returns empty list if nothing is found"""
         return self.db.search(self.q.id == identity)
 
+    def get_by_operation(self, operation_name: str):
+        return self.db.search(self.q.operation_name == operation_name)
+
     def insert(self, obj):
         """if image_name does not yet exist, insert"""
         if not self.db.search(self.q.image_name == obj['image_name']):
