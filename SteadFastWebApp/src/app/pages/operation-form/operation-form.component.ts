@@ -67,7 +67,7 @@ export class OperationFormComponent implements OnInit {
   
   // Submit Form
   async submit() {
-    if (this.uploadForm.valid) {
+    if (this.uploadForm.valid && this.uploadForm.get('image').value != null) {
       var totalImageName = this.uploadForm.get('name').value + "." + this.imageExtension
       var operationName = this.uploadForm.get('operation').value
       var author = this.uploadForm.get('author').value
@@ -76,16 +76,17 @@ export class OperationFormComponent implements OnInit {
         this.imageBase = encoded.toString();
       })
 
-      if (this.imageService.ImageNameIsDuplicate(totalImageName)) {
-        console.log('Error: ', "this imagename already exists");
-        alert('An image with this name already exists, change it!')
+      if (!this.imageService.ImageNameIsDuplicate(totalImageName)) {
+        this.imageService.post(totalImageName, operationName, author, this.imageBase);
       }
       else {
-        this.imageService.post(totalImageName, operationName, author, this.imageBase);
+        console.log('Error: ', "this imagename already exists");
+        alert("An image with this name already exists, change it's name!")
       }
     }
     else {
       this.formState = "invalid";
+      alert('Be sure to fill in all the fields')
     }
   }
 
