@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class ImageService {
 
     existingImages: string[] = []
-    baseUrl = 'http://0.0.0.0:5000/' //"http://83.163.109.161/"
+    baseUrl = "http://83.163.109.161/"
     constructor(private http: HttpClient) {
         // this.getImageNames()
     }

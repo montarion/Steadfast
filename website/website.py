@@ -110,8 +110,8 @@ def get_image(filename):
 @app.route("/api/images", methods=["POST"])
 def upload_image():
     data = json.loads(request.data.decode())
-    imgdict, b64img = get_info(data)
-    result, filepath = save_file(b64img,imgdict["image_name"])
+    imgdict, b64img = ImageService.get_info(data)
+    result, filepath = ImageService.save_file(b64img,imgdict["image_name"])
     print(b64img)
 
 
