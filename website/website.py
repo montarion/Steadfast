@@ -155,10 +155,9 @@ def get_image(filename):
 def upload_image():
     data = json.loads(request.data.decode())
     print('POST /api/images, body:')
-    pprint(data)
+    print(data)
     imgdict, b64img = get_image_service().get_info(data)
     result, filepath = get_image_service().save_file(b64img, imgdict["image_name"])
-    # print(b64img)
 
     if result:
         # write imgdict to database

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ImageService } from 'src/app/services/image-service';
@@ -8,7 +8,7 @@ import { ImageService } from 'src/app/services/image-service';
   templateUrl: './operation-form.component.html',
   styleUrls: ['./operation-form.component.scss']
 })
-export class OperationFormComponent implements OnInit {
+export class OperationFormComponent implements OnInit, AfterViewInit {
 
   yourOption: any = null;
   options = []
@@ -18,7 +18,8 @@ export class OperationFormComponent implements OnInit {
   imageBase: string;
   uploadForm: FormGroup;
   formState: string = "valid";
-  constructor(private http: HttpClient, public fb: FormBuilder, private imageService: ImageService) {
+
+  constructor(private http: HttpClient, public fb: FormBuilder, private imageService: ImageService, private elementRef: ElementRef) {
     this.uploadForm = this.fb.group({
       image: [null],
       name: [''],
@@ -31,6 +32,10 @@ export class OperationFormComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  ngAfterViewInit() {
+    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#343a40';
+ }
 
   showPreview(event) {
     const file = (event.target as HTMLInputElement).files[0];
