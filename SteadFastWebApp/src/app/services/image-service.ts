@@ -53,9 +53,4 @@ export class ImageService {
             }
         );
     }
-<<<<<<< HEAD
-
 }
-=======
-}
->>>>>>> 132341ca1c9851714cf7ed7462f895275dbb9a0c

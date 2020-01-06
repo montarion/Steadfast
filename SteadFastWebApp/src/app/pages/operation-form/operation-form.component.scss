@@ -1,17 +1,21 @@
 .v-spacing {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 body {
-    background-color: gray;
+  background-color: gray;
 }
 
 ::placeholder {
-    color: white;
-  }
+  color: white;
+}
 
 .dark-input {
-    background-color: #343a40;
-    border-color: #007bff;
-    color:white;
+  background-color: #343a40;
+  border-color: rgb(88, 97, 66); //#007bff;
+  color: white;
+}
+
+.btn-primary {
+    background-color: rgb(88,97,66);
 }
