@@ -3,3 +3,21 @@
     width: 50%;
     padding: 10px;
   }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.item {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.card {
+  margin: 1em;
+  max-width: 20rem;
+}

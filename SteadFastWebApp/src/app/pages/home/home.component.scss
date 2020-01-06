@@ -1,0 +1,32 @@
+.sf-image {
+  background-image: url('src/assets/OurEmblem.jpg');
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+
+.jumbotron {
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+
+.center {
+  margin: auto;
+  width: 60%;
+  padding: 10px;
+}
+
+.info {
+    border-style: solid;
+    border-width: 0.1rem;
+    border-radius: 1em;
+    border-color:  rgb(88,97,66); //#0275d8;
+}
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 3px solid rgb(88,97,66);
+}

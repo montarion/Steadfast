@@ -6,13 +6,19 @@ import { OperationFormComponent } from './pages/operation-form/operation-form.co
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  {
     path: 'home',
     component: HomeComponent
   },
   {
     path: 'form',
     component: OperationFormComponent
-  }
+  },
+  // { path: '**', component: 'PageNotFoundComponent' }
 ];
 
 @NgModule({

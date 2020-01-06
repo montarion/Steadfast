@@ -10,6 +10,9 @@ import { ImageService } from 'src/app/services/image-service';
 })
 export class OperationFormComponent implements OnInit {
 
+  yourOption: any = null;
+  options = []
+
   imageExtension: string;
   imageURL: string;
   imageBase: string;
@@ -22,6 +25,9 @@ export class OperationFormComponent implements OnInit {
       operation: [''],
       author: ['']
     })
+    localStorage.setItem('operation_names', JSON.stringify(['OP: Green Risk', "OP: Red Flare"]));
+
+    this.options = JSON.parse(localStorage.getItem('operation_names'))
   }
 
   ngOnInit() { }
@@ -64,14 +70,14 @@ export class OperationFormComponent implements OnInit {
     };
     return encoded
   }
-  
+
   // Submit Form
   async submit() {
     if (this.uploadForm.valid && this.uploadForm.get('image').value != null) {
       var totalImageName = this.uploadForm.get('name').value + "." + this.imageExtension
       var operationName = this.uploadForm.get('operation').value
       var author = this.uploadForm.get('author').value
-      
+
       await this.getBase64(this.uploadForm.get('image').value).then(encoded => {
         this.imageBase = encoded.toString();
       })
@@ -89,7 +95,7 @@ export class OperationFormComponent implements OnInit {
       alert('Be sure to fill in all the fields')
     }
   }
-
+}
   // onSubmit() {
   //   const formData = new FormData();
   //   formData.append('file', this.fileData);
@@ -104,4 +110,3 @@ export class OperationFormComponent implements OnInit {
   //   };
   //   alert('succes!')
   // }
-}
