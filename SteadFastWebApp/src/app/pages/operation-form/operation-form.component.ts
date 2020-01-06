@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ImageService } from 'src/app/services/image-service';
@@ -8,21 +8,28 @@ import { ImageService } from 'src/app/services/image-service';
   templateUrl: './operation-form.component.html',
   styleUrls: ['./operation-form.component.scss']
 })
-export class OperationFormComponent implements OnInit {
+export class OperationFormComponent implements OnInit, AfterViewInit {
 
   imageExtension: string;
   imageURL: string;
   imageBase: string;
   uploadForm: FormGroup;
   formState: string = "valid";
-  constructor(private http: HttpClient, public fb: FormBuilder, private imageService: ImageService) {
+
+  constructor(private http: HttpClient, public fb: FormBuilder, private imageService: ImageService, private elementRef: ElementRef) {
     this.uploadForm = this.fb.group({
       image: [null],
-      name: ['']
+      name: [''],
+      operation: [''],
+      author: ['']
     })
   }
 
   ngOnInit() { }
+
+  ngAfterViewInit() {
+    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#343a40';
+ }
 
   showPreview(event) {
     const file = (event.target as HTMLInputElement).files[0];
@@ -65,21 +72,26 @@ export class OperationFormComponent implements OnInit {
   
   // Submit Form
   async submit() {
-    if (this.uploadForm.valid) {
+    if (this.uploadForm.valid && this.uploadForm.get('image').value != null) {
       var totalImageName = this.uploadForm.get('name').value + "." + this.imageExtension
+      var operationName = this.uploadForm.get('operation').value
+      var author = this.uploadForm.get('author').value
+      
       await this.getBase64(this.uploadForm.get('image').value).then(encoded => {
         this.imageBase = encoded.toString();
       })
 
-      if (this.imageService.ImageNameIsDuplicate(totalImageName)) {
-        console.log('Error: ', "this imagename already exists");
-        alert('An image with this name already exists, change it!')
+      if (!this.imageService.ImageNameIsDuplicate(totalImageName)) {
+        this.imageService.post(totalImageName, operationName, author, this.imageBase);
       }
-
-      this.imageService.post(totalImageName, this.imageBase);
+      else {
+        console.log('Error: ', "this imagename already exists");
+        alert("An image with this name already exists, change it's name!")
+      }
     }
     else {
       this.formState = "invalid";
+      alert('Be sure to fill in all the fields')
     }
   }
 
