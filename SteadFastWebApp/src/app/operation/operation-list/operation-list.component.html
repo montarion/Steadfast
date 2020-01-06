@@ -6,14 +6,15 @@
 </div> -->
 
 <div class="container">
-  <div *ngFor="let image of image_list" class="">
+  <div *ngFor="let image of image_list">
     <div class="item">
       <div class="card">
         <!-- <h5 class="card-header">{{image}}</h5> -->
         <img class="card-img-top" src="http://localhost:5000/api/images/{{image}}" alt="Whoops... Lost this one.">
-        <div class="card-body">
-          <p class="card-text">{{image}}</p>
-          <a href="#" class="card-link">Go to Operation</a>
+        <div class="card-body center">
+          <!-- <p class="card-text center">{{image}}</p> -->
+          <a href="#" class="card-link center">Go to Operation</a>
+          <a href="http://localhost:5000/api/images/{{image}}" class="card-link center">Go to full Image</a>
         </div>
       </div>
     </div>

@@ -1,23 +1,35 @@
 .center {
-    margin: auto;
-    width: 50%;
-    padding: 10px;
-  }
+  margin: auto;
+  align-items: center;
+  padding: 10px;
+}
 
 .container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  align-items: flex-start;
+  align-items: baseline;
+}
+
+a {
+  color: #697b3b;
 }
 
 .item {
-  flex-grow: 1;
+  flex-grow: 2;
   flex-shrink: 1;
 }
 
 .card {
-  margin: 1em;
+  color: white;
+  background-color: #1E2022;
+  border-color: rgb(88, 97, 66);
+  border-width: 0.2rem;
+  border-top-width: 0rem;
+  border-left-width: 0rem;
+  border-right-width: 0rem;
+  margin: 0.5em;
+  // padding: 1em;
   max-width: 20rem;
 }
