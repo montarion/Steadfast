@@ -6,6 +6,11 @@
   background-size: 100% 100%;
 }
 
+h3 {
+  margin:1em;
+  margin-left: 0;
+}
+
 .main {
   color: white;
 
@@ -32,7 +37,7 @@
 }
 
 .info {
-  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  padding: 1rem;
   border-style: solid;
   border-width: 0.1rem;
   border-radius: 1em;
@@ -47,6 +52,9 @@ hr {
 }
 
 .list-group-flush {
+  .list-group-item {
+    width: 95%
+  }
   .list-group-item:first-child {
     border-top-left-radius: 1em;
     border-top-right-radius: 1em;
