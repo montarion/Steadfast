@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { OperationFormComponent } from './pages/operation-form/operation-form.component';
+import { OperationDetailComponent } from './operation/operation-detail/operation-detail.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,7 @@ const routes: Routes = [
   {
     path: 'form',
     component: OperationFormComponent
-  },
+  }
   // { path: '**', component: 'PageNotFoundComponent' }
 ];
 

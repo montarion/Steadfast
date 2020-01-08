@@ -8,12 +8,18 @@ import { ImageService } from 'src/app/services/image-service';
 })
 export class OperationListComponent implements OnInit {
 
-  image_list: string[] = []
+  image_list: any[] = []
 
   constructor(private imageService: ImageService) { }
 
   ngOnInit() {
-    this.imageService.getImageNamesObservable().subscribe(res => this.image_list = res)
-    console.log(this.image_list)
+    // this.imageService.getImageNamesObservable().subscribe(res => this.image_list = res)
+    this.imageService.getFullImageInfos().subscribe(res => {
+      var image_names = []
+      for (var a of res) {
+        image_names.push(a)
+      }
+      this.image_list = image_names;
+    })
   }
 }

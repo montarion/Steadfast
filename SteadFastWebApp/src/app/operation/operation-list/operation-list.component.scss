@@ -28,6 +28,14 @@ a {
   border-top-width: 0rem;
   border-left-width: 0rem;
   border-right-width: 0rem;
+
+  .card-img-top {
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+  }
+
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
   margin: 0.5em;
   max-width: 20rem;
 }

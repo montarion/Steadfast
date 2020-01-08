@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ImageService } from 'src/app/services/image-service';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-operation-detail',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OperationDetailComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private imageService: ImageService) { }
+  operation: string;
+  image_list: string[] = []
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.operation = params['id'];
+      this.imageService.getOperationImageNames(this.operation).subscribe(res => {
+        this.image_list = res;
+      },
+        err => {
+          console.log(err);
+        });
+    });
   }
-
 }

@@ -20,15 +20,23 @@ export class ImageService {
         return false;
     }
 
-    getImageNamesObservable(){
+    getImageNamesObservable() {
         // tslint:disable-next-line: quotemark
         return this.http.get<string[]>(this.baseUrl + "api/images");
     }
+
     getImageNames() {
         this.http.get<string[]>(this.baseUrl + "api/images").subscribe(res => {
             this.existingImages = res;
-            console.log(res);
         })
+    }
+
+    getOperationImageNames(operation_name: string) {
+        return this.http.get<string[]>(this.baseUrl + "api/operations/" + operation_name)
+    }
+
+    getFullImageInfos(){
+        return this.http.get<string[]>(this.baseUrl + "api/images/operations")
     }
 
     post(imageName: string, operationName: string, author: string, baseEncoded: string) {
@@ -44,7 +52,6 @@ export class ImageService {
         });
         this.http.post((this.baseUrl + "api/images"), json).subscribe(
             res => {
-                console.log("response", res);
                 this.existingImages.push(imageName);
             },
             error => {

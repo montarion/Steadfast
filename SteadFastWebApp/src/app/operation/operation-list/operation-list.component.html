@@ -2,9 +2,9 @@
   <div *ngFor="let image of image_list">
     <div class="item">
       <div class="card">
-        <img class="card-img-top" src="http://localhost:5000/api/images/{{image}}" alt="Whoops... Lost this one.">
+        <img class="card-img-top" src="http://localhost:5000/api/images/{{image.image_name}}" alt="Whoops... Lost this one.">
         <div class="card-body center">
-          <a href="#" class="card-link center">Go to Operation</a>
+          <a [routerLink]="['/operations', image.operation_name]" class="card-link center">Go to Operation</a>
           <a href="http://localhost:5000/api/images/{{image}}" class="card-link center">Go to full Image</a>
         </div>
       </div>
