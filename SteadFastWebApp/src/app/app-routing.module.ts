@@ -8,7 +8,7 @@ import { OperationDetailComponent } from './operation/operation-detail/operation
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
