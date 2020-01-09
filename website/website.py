@@ -76,6 +76,7 @@ def get_image_service():
         image_service = ImageService()
         return image_service
 
+
 # Services
 image_service = ImageService(app.root_path, staticfolder, imageuploadfolder)
 
@@ -108,12 +109,21 @@ def hello():
 
 @app.route('/favicon.ico')
 def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static/files/images'), 'pikayou.ico', mimetype='image/vnd.microsoft.icon')
+    return send_from_directory(os.path.join(app.root_path, 'static/files'), 'pikayou.ico',
+                               mimetype='image/vnd.microsoft.icon')
 
 
 @app.route('/api/images')
 def get_image_list():
     lst = image_service.getimagedircontents()
+    r = make_response(json.dumps(lst))
+    r.mimetype = 'application/json'
+    return r
+
+@app.route('/api/images/operations')
+def get_full_image_list():
+    lst = get_image_repository().get_all()
+    print(lst)
     r = make_response(json.dumps(lst))
     r.mimetype = 'application/json'
     return r
@@ -124,6 +134,7 @@ def get_operation_names_list():
     r = make_response(json.dumps(lst))
     r.mimetype = 'application/json'
     return r
+
 
 @app.route('/api/operations/<operation_name>')
 def get_operation_image_list(operation_name: str):
@@ -180,48 +191,6 @@ def get_raw_image(filename):
     else:
         return send_from_directory(app.root_path + staticfolder, "error.png")
 
-#region old functions
-#
-# def getimagedircontents():
-#     targetdir = staticfolder + imageuploadfolder
-#     lst = os.listdir(os.path.join(app.root_path, targetdir[1:]))
-#     return json.dumps(lst)
-#
-#
-# def save_file(imgstring, filename):
-#     try:
-#         imgdata = base64.b64decode(imgstring)
-#         # print(type(imgdata))
-#         filepath = app.root_path + staticfolder + imageuploadfolder
-#         filename = filepath + filename
-#         print("Trying to write to: {}".format(filename))
-#         with open(filename, "wb") as f:
-#             f.write(imgdata)
-#             print("Writing to: {}".format(filename))
-#         print("Finished writing to: {}".format(filename))
-#         return True, filename
-#     except Exception as e:
-#         print("Couldn't save..")
-#         print(str(e))
-#         return str(e)
-#
-#
-# def get_info(data):
-#     print("**INSIDE GET_INFO**")
-#     name, ext = data.get("image_name").split(".")
-#     b64img = data["base_encoded_image"].split(",")[1]  # get actual base64 code
-#     b64img += "===="  # add padding
-#     operation = data.get("operation_name")
-#     if not name:
-#         name = operation
-#     name = "{}.{}".format(name, ext)
-#     comments = data.get("comments")
-#     author = data.get("author")
-#     imageInfo = data.get("image_info")
-#     imgdict = {"image_name": name, "author": author, "operation_name": operation, "comments": comments,
-#                "image_info": imageInfo}
-#     return imgdict, b64img
-#endregion
 
 # region stand-alone startup
 if __name__ == "__main__":

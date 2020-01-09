@@ -31,11 +31,11 @@ class ImageService(object):
             return str(e)
 
 
-    def save_file(imgstring, filename):
+    def save_file(self, imgstring, filename):
         try:
             imgdata = base64.b64decode(imgstring)
             print(type(imgdata))
-            filepath = app.root_path + staticfolder + imageuploadfolder
+            filepath = self.root_path + self.staticfolder + self.imageuploadfolder
             filename = filepath + filename
             print("Trying to write to: {}".format(filename))
             with open(filename, "wb") as f:
@@ -51,17 +51,18 @@ class ImageService(object):
 
     def get_info(self, data):
         print("**INSIDE GET_INFO**")
-        name, ext = data.get("image-name").split(".")
-        b64img = data["base-encoded-image"].split(",")[1] # get actual base64 code
-        b64img = b64img + "====" # add padding
+        print(data.get("image_name"))
+        name, ext = data.get("image_name").split(".")
+        b64img = data["base_encoded_image"].split(",")[1] # get actual base64 code
+        b64img = b64img + "===="  # add padding
         print(b64img)
-        operation = data.get("operation") #data["operation"]
+        operation = data.get("operation_name")  # data["operation"]
         if not name:
             name = operation
         name = "{}.{}".format(name, ext)
         comments = data.get("comments")
         author = data.get("author")
-        imageInfo = data.get("info")
+        imageInfo = data.get("image_info")
         imgdict = {"image_name": name, "author":author, "operation_name": operation, "comments": comments, "image_info": imageInfo}
         return imgdict, b64img
 
