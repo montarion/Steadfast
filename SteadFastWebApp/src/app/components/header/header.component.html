@@ -1,17 +1,19 @@
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(88,97,66);">
   <div>
     <img src="../../../assets/OurEmblem.jpg" style="width:30px; height:2rem;" />
-    <a class="navbar-brand brand-custom" href="#">
+    <a class="navbar-brand brand-custom" routerLink="/home">
       SteadFast 1st Infantry
     </a>
   </div>
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/home"><span class="fa fa-home fa-2x"></span></a>
+        <a [routerLinkActive]="['active']" class="nav-link" routerLink="/home">
+          <span class="fa fa-home fa-2x"></span>
+        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/operations/list">
+        <a [routerLinkActive]="['active']" class="nav-link" routerLink="/operations/list">
           <span class="fa fa-image fa-2x"></span>
           <span class="sr-only">(current)</span></a>
       </li>

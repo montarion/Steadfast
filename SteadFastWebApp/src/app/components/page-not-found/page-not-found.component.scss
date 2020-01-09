@@ -1,0 +1,45 @@
+.page-not-found {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    padding: 5em;
+}
+
+.top {
+    font-size: em;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    padding: 1rem;
+    border-style: solid;
+    border-width: 0.1rem;
+    border-radius: 1em;
+    border-color: rgb(88, 97, 66);
+    background-color: #1E2022;
+
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+  }
+
+h1 {
+    flex: 1;
+}
+h2 {
+    flex: 1;
+}
+h3 {
+    flex: 1;
+}
+h4 {
+    flex: 1;
+}
+h5 {
+    flex: 1;
+}
+h6 {
+    flex: 1;
+}
