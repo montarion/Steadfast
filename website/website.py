@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 
 from repositories.Repository import Repository
 from services.ImageService import ImageService
+from flasgger import Swagger, swag_from
 
 
 class User():  # for logging users in
@@ -44,6 +45,49 @@ class User():  # for logging users in
 # Flask App
 app = Flask(__name__)
 CORS(app)
+
+#region Swagger Config
+app.config['SWAGGER'] = {
+    'uiversion': 3
+}
+swagger_template = {
+  "swagger": "2.0",
+  "info": {
+    "title": "SteadfastWebApp | SteadWeb",
+    "description": "API for the SteadWeb",
+    "contact": {
+      "responsibleDeveloper": "Christian & Jamiro",
+      "email": "steadfast1stinf@gmail.com"
+    },
+    "termsOfService": "/there_is_no_tos",
+    "version": "1.0.0"
+  },
+  "host": "jamiros.ip:poort",  # overrides localhost:500
+  "basePath": "/",  # base bash for blueprint registration
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "operationId": "getmyData"
+}
+swagger_config = {
+    "headers": [
+    ],
+    "specs": [
+        {
+            "endpoint": '/swagger',
+            "route": '/static/swagger/swagger.json',
+            "rule_filter": lambda rule: True,  # all in
+            "model_filter": lambda tag: True,  # all in
+        }
+    ],
+    "static_url_path": "/flasgger_static",
+    # "static_folder": "static",  # must be set by user
+    "swagger_ui": True,
+    "specs_route": "/apidocs/"
+}
+swagger = Swagger(app, config=swagger_config, template=swagger_template)
+#endregion
 
 # Globals
 app.config["UPLOAD_FOLDER"] = "files/"
@@ -115,21 +159,32 @@ def favicon():
 
 @app.route('/api/images')
 def get_image_list():
+    """
+        file: static/swagger/image-list.yml
+    """
     lst = image_service.getimagedircontents()
     r = make_response(json.dumps(lst))
     r.mimetype = 'application/json'
     return r
 
+
 @app.route('/api/images/operations')
 def get_full_image_list():
+    """
+        file: static/swagger/full-image-list.yml
+    """
     lst = get_image_repository().get_all()
     print(lst)
     r = make_response(json.dumps(lst))
     r.mimetype = 'application/json'
     return r
 
+
 @app.route('/api/operations')
 def get_operation_names_list():
+    """
+        file: static/swagger/operation-list.yml
+    """
     lst = get_image_repository().get_all_operation_names()
     r = make_response(json.dumps(lst))
     r.mimetype = 'application/json'

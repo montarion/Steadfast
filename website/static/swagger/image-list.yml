@@ -1,0 +1,12 @@
+Endpoint for retrieving all image names
+---
+definitions:
+  Image:
+      type: string
+responses:
+  200:
+    description: A list of all image names
+    schema:
+      $ref: '#/definitions/Image'
+    examples:
+      Image: ["pikayou.png", "owl.jpg"]

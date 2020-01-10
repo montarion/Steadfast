@@ -1,0 +1,12 @@
+Endpoint for retrieving all operation names
+---
+definitions:
+  Operation:
+      type: string
+responses:
+  200:
+    description: A list of all operation names
+    schema:
+      $ref: '#/definitions/Operation'
+    examples:
+      Image: ["LuxAeterna", "OP: Green Risk"]
