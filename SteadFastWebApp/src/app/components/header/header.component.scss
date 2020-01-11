@@ -1,13 +1,22 @@
-.navbar-dark .navbar-nav .nav-link {
-    color: white;
+.navbar-nav {
+  color: white;
+}
+
+.navbar {
+  height: 3em;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
 }
 
 a {
-    color:white;
-    margin-left: 1rem;
+  color: white;
+  margin-left: 1rem;
 }
 
 .active {
-    border-radius: 1em;
-    background-color: #697b3b;
+  height: 97%;
+//   border-radius: 1em;
+  background-color: #697b3b;
 }

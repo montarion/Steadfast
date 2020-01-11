@@ -6,8 +6,6 @@ import { Component, ElementRef, AfterViewInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements AfterViewInit {
-  title = 'SteadFastWebApp';
-
   constructor(private elementRef: ElementRef) {}
 
   ngAfterViewInit() {

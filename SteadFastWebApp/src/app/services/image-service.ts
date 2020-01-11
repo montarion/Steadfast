@@ -53,6 +53,7 @@ export class ImageService {
         this.http.post((this.baseUrl + "api/images"), json).subscribe(
             res => {
                 this.existingImages.push(imageName);
+                alert("Added "+imageName+" to the wall");
             },
             error => {
                 console.log('error', error);

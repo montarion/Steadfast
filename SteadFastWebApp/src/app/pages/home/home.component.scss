@@ -1,5 +1,5 @@
 .sf-image {
-  background-image: url('src/assets/OurEmblem.jpg');
+  background-image: url('src/assets/OurEmblem.png');
   -webkit-background-size: 100% 100%;
   -moz-background-size: 100% 100%;
   -o-background-size: 100% 100%;
@@ -12,6 +12,7 @@ h3 {
 }
 
 .main {
+  top: 1;
   color: white;
 
   .list-group-flush {
@@ -22,6 +23,7 @@ h3 {
 }
 
 .jumbotron {
+  margin-top: 3em;
   color: white;
   background-color: #1E2022;
   border-top-left-radius: 0;
