@@ -34,3 +34,18 @@ a {
   border-bottom-right-radius: 1em;
   margin: 1em;
 }
+
+.card-body {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card-title {
+  font-weight: 600;
+}
+
+.card-text {
+  font-size: small;
+}

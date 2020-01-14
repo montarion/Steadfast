@@ -1,7 +1,11 @@
 .navbar-nav {
   color: white;
 }
-
+.nav-item {
+  :hover {
+    background-color: #697b3b;
+  }
+}
 .navbar {
   height: 3em;
   position: fixed;
@@ -17,6 +21,5 @@ a {
 
 .active {
   height: 97%;
-//   border-radius: 1em;
   background-color: #697b3b;
 }

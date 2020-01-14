@@ -19,7 +19,7 @@ class Repository(object):
         return self.db.all()
 
     def get_all_operation_names(self):
-        return [image['operation_name'] for image in self.db.all()]
+        return list(set([image['operation_name'] for image in self.db.all()]))
 
     def get_by_id(self, identity: int):
         """returns empty list if nothing is found"""
