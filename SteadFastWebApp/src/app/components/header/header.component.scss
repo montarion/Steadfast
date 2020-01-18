@@ -1,11 +1,22 @@
 .navbar-nav {
   color: white;
 }
+
 .nav-item {
+  width: 100%;
+
   :hover {
     background-color: #697b3b;
   }
 }
+
+li {
+  .nav-item {
+    margin: 0;
+    padding: 0;
+  }
+}
+
 .navbar {
   height: 3em;
   position: fixed;

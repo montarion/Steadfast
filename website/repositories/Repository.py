@@ -1,6 +1,5 @@
 from flata import Flata, Query, where
 from flata.storages import JSONStorage
-import json
 
 
 class Repository(object):
@@ -34,7 +33,7 @@ class Repository(object):
         if not self.db.search(self.q.image_name == obj['image_name']):
             self.db.insert(obj)
         else:
-            raise Exception('this image_name already exists')
+            raise Exception('this object already exists')
 
     def update(self, obj: dict):
         """Update an object, the object *must* contain it's image_name for identity"""
