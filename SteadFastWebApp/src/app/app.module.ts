@@ -13,6 +13,10 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { OperationComponent } from './operation/operation/operation.component';
 import { OperationListComponent } from './operation/operation-list/operation-list.component';
 import { OperationDetailComponent } from './operation/operation-detail/operation-detail.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { CookieService } from 'ngx-cookie-service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +26,9 @@ import { OperationDetailComponent } from './operation/operation-detail/operation
     PageNotFoundComponent,
     OperationComponent,
     OperationListComponent,
-    OperationDetailComponent
+    OperationDetailComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +37,7 @@ import { OperationDetailComponent } from './operation/operation-detail/operation
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

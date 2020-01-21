@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ImageService } from 'src/app/services/image-service';
+import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-operation-form',

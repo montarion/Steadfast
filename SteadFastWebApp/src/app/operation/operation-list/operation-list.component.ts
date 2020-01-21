@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ImageService } from 'src/app/services/image-service';
+import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-operation-list',
@@ -8,7 +8,7 @@ import { ImageService } from 'src/app/services/image-service';
 })
 export class OperationListComponent implements OnInit {
 
-  image_list: any[] = []
+  image_list: any[] = null;
 
   constructor(private imageService: ImageService) { }
 

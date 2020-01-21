@@ -18,7 +18,8 @@ class User(object):
             payload = {
                 'exp': datetime.utcnow() + timedelta(days=0, seconds=5),
                 'iat': datetime.utcnow(),
-                'sub': self.email  # the user-id
+                'sub': self.email,  # the user-id
+                'usr': self.username
             }
             return jwt.encode(
                 payload,

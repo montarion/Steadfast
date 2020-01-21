@@ -21,7 +21,7 @@ class UserService(object):
         user = self.__userRepository.get_by_id(email)
         if not user:
             try:
-                new_user = User(email, bcrypt.hashpw(password.encode(), bcrypt.gensalt()),
+                new_user = User(email, bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode("utf-8") ,
                                 username)  # hash user password with salt
                 self.__userRepository.insert(new_user)
                 auth_token = new_user.encode_auth_token()

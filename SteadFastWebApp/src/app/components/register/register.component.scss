@@ -1,0 +1,76 @@
+ /* Bordered form */
+ form {
+   background-color: #1E2022;
+   border: 0.2em solid rgb(88, 97, 66);
+   border-radius: 1em;
+   padding: 1em;
+ }
+
+ .center {
+   margin: 0 auto;
+   margin-top: 10em;
+   width: 50%;
+ }
+
+ input {
+   flex: 1;
+   margin: 0.5rem;
+   border-radius: 12px;
+   text-align: center;
+   width: 100%;
+   border-style: none;
+   color: white;
+   background-color: rgb(88, 97, 66);
+   background-image: linear-gradient(-120deg, rgba(255, 0, 0, 0), #697b3b);
+ }
+
+ ::-webkit-input-placeholder {
+   /* Edge */
+   color: white;
+   opacity: 0.8;
+ }
+
+ :-ms-input-placeholder {
+   /* Internet Explorer 10-11 */
+   color: white;
+   opacity: 0.8;
+ }
+
+ ::placeholder {
+   color: white;
+   opacity: 0.8;
+ }
+
+ .btn-secondary {
+   border-color: rgb(88, 97, 66);
+   background-color: rgb(73, 82, 51);
+ }
+
+ .btn-primary {
+   border-color: rgb(88, 97, 66);
+   background-color: #697b3b;
+ }
+
+ /* Add padding to containers */
+ .container {
+   display: flex;
+ }
+
+ .one {
+   flex-direction: column;
+ }
+
+ .two {
+   display: flex;
+   justify-content: space-around;
+   margin-top: 0.5rem;
+ }
+
+ .already-account {
+  margin-top: 1em;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}

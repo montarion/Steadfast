@@ -11,6 +11,8 @@ from repositories.Repository import Repository
 from services.ImageService import ImageService
 from flasgger import Swagger, swag_from
 
+from services.UserService import UserService
+
 
 class User():  # for logging users in
     """An admin user capable of viewing reports.
@@ -46,29 +48,29 @@ class User():  # for logging users in
 app = Flask(__name__)
 CORS(app)
 
-#region Swagger Config
+# region Swagger Config
 app.config['SWAGGER'] = {
     'uiversion': 3
 }
 swagger_template = {
-  "swagger": "2.0",
-  "info": {
-    "title": "SteadfastWebApp | SteadWeb",
-    "description": "API for the SteadWeb",
-    "contact": {
-      "responsibleDeveloper": "Christian & Jamiro",
-      "email": "steadfast1stinf@gmail.com"
+    "swagger": "2.0",
+    "info": {
+        "title": "SteadfastWebApp | SteadWeb",
+        "description": "API for the SteadWeb",
+        "contact": {
+            "responsibleDeveloper": "Christian & Jamiro",
+            "email": "steadfast1stinf@gmail.com"
+        },
+        "termsOfService": "/there_is_no_tos",
+        "version": "1.0.0"
     },
-    "termsOfService": "/there_is_no_tos",
-    "version": "1.0.0"
-  },
-  "host": "jamiros.ip:poort",  # overrides localhost:500
-  "basePath": "/",  # base bash for blueprint registration
-  "schemes": [
-    "http",
-    "https"
-  ],
-  "operationId": "getmyData"
+    "host": "jamiros.ip:poort",  # overrides localhost:500
+    "basePath": "/",  # base bash for blueprint registration
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "operationId": "getmyData"
 }
 swagger_config = {
     "headers": [
@@ -87,7 +89,7 @@ swagger_config = {
     "specs_route": "/apidocs/"
 }
 swagger = Swagger(app, config=swagger_config, template=swagger_template)
-#endregion
+# endregion
 
 # Globals
 app.config["UPLOAD_FOLDER"] = "files/"
@@ -99,6 +101,7 @@ imageuploadfolder = uploadfolder + "images/"
 # Repositories
 image_repository = None
 image_service = None
+user_service = None
 
 
 def get_image_repository():
@@ -119,6 +122,15 @@ def get_image_service():
     else:
         image_service = ImageService()
         return image_service
+
+
+def get_user_service():
+    global user_service
+    if user_service:
+        return user_service
+    else:
+        user_service = UserService()
+        return user_service
 
 
 # Services
@@ -246,6 +258,44 @@ def get_raw_image(filename):
     else:
         return send_from_directory(app.root_path + staticfolder, "error.png")
 
+
+# region User Login/Register/Get
+@app.route("/api/register", methods=["POST"])
+def register_user():
+    try:
+        data = json.loads(request.data.decode())
+        if not type(data['email']) is str or not type(data['username'] is str):
+            raise Exception("Email and Username should be strings")
+
+        response_json = get_user_service().register(data['email'], data['password'], data['username'])
+        r = make_response(response_json)
+        r.mimetype = 'application/json'
+        return r
+    except Exception as e:
+        print(e)
+        raise
+
+
+@app.route("/api/login", methods=["POST"])
+def login_user():
+    data = json.loads(request.data.decode())
+    response_json = get_user_service().login(data['email'], data['password'])
+    r = make_response(response_json)
+    r.mimetype = 'application/json'
+    return r
+
+
+@app.route("/api/user", methods=["GET"])
+def return_current_user_info():
+    data = json.loads(request.data.decode())
+    auth_header = request.headers['Authorization']
+    response_json = get_user_service().get_user_details(auth_header)
+    r = make_response(response_json)
+    r.mimetype = 'application/json'
+    return r
+
+
+# endregion
 
 # region stand-alone startup
 if __name__ == "__main__":

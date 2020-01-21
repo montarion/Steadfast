@@ -1,0 +1,25 @@
+<div class="center">
+  <form>
+    <div class="container one">
+      <div>
+        <input [(ngModel)]="email" name="email-i" class="form-input" tabindex="1" type="email" placeholder="Email"
+          autofocus required onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+      </div>
+      <div>
+        <input [(ngModel)]="password" name="password-i" class="form-input" tabindex="2" type="password"
+          placeholder="Password" required onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+      </div>
+    </div>
+    <div class="two">
+      <button type="button" routerLink="/home" tabindex="4" class="btn btn-secondary">
+        Cancel
+      </button>
+      <button (click)="login()" tabindex="3" class="btn btn-primary">
+        Login
+      </button>
+    </div>
+    <div class="no-account-yet">
+      <p>Don't have an account yet?<br><a routerLink="/register">Register here</a></p>
+    </div>
+  </form>
+</div>
