@@ -26,6 +26,7 @@ export class UserService {
             console.log("Next User:", { username: tokenJson['usr'], email: tokenJson['sub'] });
         } else {
             console.log("no cookie set yet")
+            this.currentUserSubject.next({ username: "", email: "" });
         }
     }
 

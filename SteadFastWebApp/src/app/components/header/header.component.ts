@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.userService.user$.subscribe(loggedInUser => {
       console.log('loggedinuser', loggedInUser)
-      if (loggedInUser.email == "") {
+      if (Object.keys(loggedInUser).length == 0) {
         this.user = null;
       }
       if (loggedInUser.email == "" && loggedInUser.username == "")
