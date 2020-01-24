@@ -9,12 +9,20 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  alreadyLoggedIn: boolean;
   email: string = '';
   password: string = '';
   
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
+    this.userService.user$.subscribe(u => {
+      if (u.email !== ""){
+        this.alreadyLoggedIn = true;
+      } else {
+        this.alreadyLoggedIn = false;
+      }
+    })
   }
 
   login() {

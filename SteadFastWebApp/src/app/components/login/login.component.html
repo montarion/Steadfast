@@ -1,4 +1,10 @@
-<div class="center">
+
+<div class="container already-logged-in" *ngIf="alreadyLoggedIn">
+  <h1>You're already logged in!</h1>
+</div>
+
+
+<div class="center" *ngIf="!alreadyLoggedIn">
   <form>
     <div class="container one">
       <div>

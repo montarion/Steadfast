@@ -54,6 +54,7 @@
  /* Add padding to containers */
  .container {
    display: flex;
+   justify-content: center;
  }
 
  .one {
@@ -74,3 +75,8 @@
    align-items: center;
    color: white;
  }
+
+.already-logged-in {
+  margin-top: 4em;
+  color: white;
+}
