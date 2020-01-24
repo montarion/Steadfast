@@ -24,7 +24,7 @@
           </a>
         </li>
         <li class="nav-item" *ngIf="user">
-          {{user.email}}
+          <button class="btn btn-secondary" (click)="logOut()">Logout</button>
         </li>
       </ul>
     </div>

@@ -8,25 +8,32 @@ import { User } from 'src/app/model/user.model';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
 
   user: User = null;
-  subscription: Subscription;
 
   constructor(private userService: UserService) {
-    this.subscription = this.userService.getUser().subscribe(user => {
-      this.user = user;
-    })
   }
 
-  getUser(): Observable<User> {
-    return this.userService.user$.asObservable();
+  getUser() {
+    return this.userService.getCurrentUser();
   }
 
   ngOnInit() {
+    this.userService.user$.subscribe(loggedInUser => {
+      console.log('loggedinuser', loggedInUser)
+      if (loggedInUser.email == "") {
+        this.user = null;
+      }
+      if (loggedInUser.email == "" && loggedInUser.username == "")
+        this.user = null;
+      else {
+        this.user = loggedInUser;
+      }
+    })
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+  logOut() {
+    this.userService.logOut();
   }
 }

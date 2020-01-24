@@ -21,14 +21,12 @@ export class RegisterComponent implements OnInit {
   register() {
     if (this.email && this.password && this.username) {
       try {
-        console.log(this.email)
-        console.log(this.password)
-        console.log(this.username)
         this.userService.postRegister(this.email.toString(), this.password.toString(), this.username.toString());
       } catch (Error){
         console.log(Error)
       }
       this.router.navigate(['/home']);
+      
     } else {
       console.log("not everything filled in")
     }

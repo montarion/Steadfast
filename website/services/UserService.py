@@ -21,10 +21,9 @@ class UserService(object):
         user = self.__userRepository.get_by_id(email)
         if not user:
             try:
-                new_user = User(email, bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode("utf-8") ,
-                                username)  # hash user password with salt
-                self.__userRepository.insert(new_user)
-                auth_token = new_user.encode_auth_token()
+                new_user = User(email, username, bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode("utf-8"))
+                added_user = self.__userRepository.add(new_user)
+                auth_token = added_user.encode_auth_token()
                 response_object = {
                     'status': 'success',
                     'message': 'Successfully registered.',
@@ -47,7 +46,8 @@ class UserService(object):
     def login(self, email, password):
         try:
             user = self.__userRepository.get_by_id(email)
-            if user and bcrypt.checkpw(user.password.encode(), password):
+            user = User(user['email'], user['username'], user['password'])
+            if user and bcrypt.checkpw(password.encode(), user.password.encode()):
                 auth_token = user.encode_auth_token()
                 response_object = {
                     'status': 'success',

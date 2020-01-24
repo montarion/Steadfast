@@ -4,10 +4,10 @@ import jwt
 
 
 class User(object):
-    def __init__(self, email, password, username):
+    def __init__(self, email, username, password=''):
         self.email = email
-        self.password = password
         self.username = username
+        self.password = password
 
     def encode_auth_token(self):
         """

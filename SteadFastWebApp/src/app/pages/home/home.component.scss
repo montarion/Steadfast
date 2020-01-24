@@ -7,18 +7,30 @@
 }
 
 h3 {
-  margin:1em;
+  margin: 1em;
   margin-left: 0;
 }
 
 .main {
   top: 1;
   color: white;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
 
   .list-group-flush {
     .list-group-item {
       background-color: #1E2022;
     }
+  }
+
+  .divider {
+    width: 100%;
+    height: 0.2em;
+    position: relative;
+    margin-bottom: 0em;
+    background-color: rgb(88, 97, 66);
   }
 }
 
@@ -46,23 +58,18 @@ h3 {
   border-color: rgb(88, 97, 66); //#0275d8;
 }
 
-hr {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border: 0;
-  border-top: 3px solid rgb(88, 97, 66);
-}
-
 .list-group-flush {
   .list-group-item {
     width: 95%
   }
+
   .list-group-item:first-child {
     border-top-left-radius: 1em;
     border-top-right-radius: 1em;
     border-bottom-left-radius: 0em;
     border-bottom-right-radius: 0em;
   }
+
   .list-group-item:last-child {
     border-top-left-radius: 0em;
     border-top-right-radius: 0em;
