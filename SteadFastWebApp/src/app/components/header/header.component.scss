@@ -11,10 +11,11 @@
 }
 
 li {
-  .nav-item {
-    margin: 0;
-    padding: 0;
-  }
+  display: flex;
+}
+
+.user-mail {
+  margin-right: 1em;
 }
 
 .navbar {
@@ -27,10 +28,18 @@ li {
 
 a {
   color: white;
-  margin-left: 1rem;
 }
 
 .active {
   height: 97%;
   background-color: #697b3b;
+}
+
+.image {
+  width: 80px;
+  height: 100%;
+}
+
+.logout {
+  vertical-align: middle;
 }
