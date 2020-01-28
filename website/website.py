@@ -183,18 +183,9 @@ def upload_image():
     print('POST /api/images, body:')
     print(data)
     imgdict, b64img = get_image_service().get_info(data)
-    result, filepath = get_image_service().save_file(b64img, imgdict["image_name"])
-
-    if result:
-        # write imgdict to database
-        # add filepath to dict
-        imgdict['image_info']['path_to_file'] = filepath
-
-        get_image_repository().insert(imgdict)
-
-        print("saved image info")
-        return json.dumps(imgdict)
-    return str(result)
+    # this also inserts to the database now.
+    result, finalimgdict = get_image_service().save_file(b64img, imgdict)
+    return json.dumps(finalimgdict)
 
 
 @app.route("/api/images/<filename>")

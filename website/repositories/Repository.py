@@ -49,4 +49,4 @@ class Repository(object):
     def remove_by_property(self, prop: str, val):
         """warn: this doesn't throw an error when nothing is found"""
         self.db.remove(self.q[prop] == val)
-        print(f'removed entry with prop: {prop} and val: {str(val)}')
+        print('removed entry with prop: {} and val: {}'.format(prop, str(val)))
