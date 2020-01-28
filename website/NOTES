@@ -1,0 +1,14 @@
+Had to install own version of mod_wsgi, to make it use python3.6
+
+clone the latest version of mod_wsgi from github:
+
+then run this script
+cd mod_wsgi
+sudo pip3.6 uninstall mod_wsgi
+./configure --with-python=/usr/local/bin/python3.6
+make -j4
+sudo make install
+echo "LoadModule wsgi_module /usr/lib/apache2/modules/mod_wsgi.so" | sudo tee /etc/apache2/mods-available/wsgi.load
+echo "LogLevel wsgi:info" | sudo tee /etc/apache2/mods-available/wsgi.conf
+sudo a2enmod wsgi
+sudo service apache2 restart
