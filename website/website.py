@@ -64,9 +64,9 @@ swagger_template = {
         "termsOfService": "/there_is_no_tos",
         "version": "1.0.0"
     },
-    "host": "jamiros.ip:poort",  # overrides localhost:500
+    "host": "83.163.109.161:5000",  # overrides localhost:500
     "basePath": "/",  # base bash for blueprint registration
-    "schemes": [
+   "schemes": [
         "http",
         "https"
     ],
