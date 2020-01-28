@@ -13,37 +13,6 @@ from flasgger import Swagger, swag_from
 
 from services.UserService import UserService
 
-
-class User():  # for logging users in
-    """An admin user capable of viewing reports.
-
-    :param str email: email address of user
-    :param str password: encrypted password for the user
-
-    """
-    __tablename__ = 'user'
-
-    name = "admin"  # name of user
-    password = "admin"  # encrypted password from database
-    authenticated = True  # check if password is correct
-
-    def is_active(self):
-        """True, as all users are active."""
-        return False
-
-    def get_id(self):
-        """Return the name to satisfy Flask-Login's requirements."""
-        return self.name
-
-    def is_authenticated(self):
-        """Return True if the user is authenticated."""
-        return False
-
-    def is_anonymous(self):
-        """False, as anonymous users aren't supported."""
-        return False
-
-
 # Flask App
 app = Flask(__name__)
 CORS(app)
@@ -103,7 +72,7 @@ image_repository = None
 image_service = None
 user_service = None
 
-
+print(app.root_path)
 def get_image_repository():
     """1 repository instance"""
     global image_repository
@@ -136,27 +105,6 @@ def get_user_service():
 # Services
 image_service = ImageService(app.root_path, staticfolder, imageuploadfolder)
 
-
-##LOGIN##
-
-# login = LoginManager()
-# login.init_app(app)
-
-# def check_login(formdata):
-#    name = formdata.name
-
-# @login.user_loader
-# def user_loader(name):
-#    return user
-
-# @app.route("/login")
-# def login():
-# check_login
-#    login_user(user)
-#    person = user.name
-#    return "You're now logged in, {}".format(person)
-
-##END OF LOGIN##
 
 @app.route("/")
 def hello():
