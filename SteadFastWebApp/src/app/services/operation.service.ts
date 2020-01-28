@@ -8,7 +8,7 @@ import {Image} from '../model/image.model';
 export class OperationService {
 
     operationImages: string[] = [];
-    baseUrl = 'http://0.0.0.0:5000/'; //"http://83.163.109.161/"
+    baseUrl = "http://83.163.109.161:5000/";
     constructor(private http: HttpClient) {}
 
     getOperationImages(operation: string){

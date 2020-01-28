@@ -15,7 +15,7 @@ export class UserService {
     private currentUserSubject = new BehaviorSubject<User>({} as User);
     public user$ = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
 
-    baseUrl = 'http://0.0.0.0:5000/'; //"http://83.163.109.161/"
+    baseUrl = "http://83.163.109.161:5000/";
 
     constructor(private http: HttpClient, private cookieService: CookieService, private jwtHelper: JwtHelper) {
         let tokenExists = this.cookieService.check('sf-auth-token');
