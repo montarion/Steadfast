@@ -72,7 +72,7 @@ image_repository = None
 image_service = None
 user_service = None
 
-print(app.root_path)
+
 def get_image_repository():
     """1 repository instance"""
     global image_repository
@@ -103,7 +103,7 @@ def get_user_service():
 
 
 # Services
-image_service = ImageService(app.root_path, staticfolder, imageuploadfolder)
+image_service = ImageService(app.root_path, staticfolder, imageuploadfolder, get_image_repository())
 
 
 @app.route("/")

@@ -10,7 +10,7 @@ class Repository(object):
     @staticmethod
     def setup(table_name: str, id_field: str):
         """Creates the specified table if not yet exists in the db.json and returns its reference either way"""
-        db = Flata('repositories/db.json', storage=JSONStorage)
+        db = Flata('db.json', storage=JSONStorage)
         db.table(table_name, id_field=id_field)
         return db.get(table_name)
 
