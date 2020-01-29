@@ -20,6 +20,7 @@ class ImageService(object):
             imgdata = base64.b64decode(imgstring)
             relativefilepath = self.staticfolder + self.imageuploadfolder
             filepath = self.root_path + relativefilepath
+            relativefilename = relativefilepath + filename
             absolutefilename = filepath + filename
             print("Trying to write to: {}".format(filename))
             with open(absolutefilename, "wb") as f:
